@@ -1,4 +1,5 @@
 "use strict";
+var body = $("body")
 var output = $("#output")
 
 //First load first XHR
@@ -70,16 +71,29 @@ var populateSecondaryDropDown = function(data) {
   output.append(buildstring);
 }
 
-var populateDOM = function(data) {
 
-   var buildstring = "";
+
+var populateDOM = function(data) {
+  var buildstring = "";
+  for (var i = 0; i < data.products.length; i++) {
     buildstring += `<div class="col-md-4"><div class="card">`
     buildstring += `<h4 class="productHeader">${data.products[i].name}</h4>`
     buildstring += `<h4 class="productDescription">${data.products[i].description}</h4>`
     buildstring += `</div></div>`
+  }
     output.append("<div class=row>" + buildstring + "</div>");
 }
 
+var decideWhichDataToLoad = function() {
+  body.click(function(e){
+    console.log("e", e);
 
 
-firstXHR().then(populateMainDropdown).then(secondXHR).then(populateSecondaryDropDown).then(thirdXHR).then(populateDOM);
+
+
+
+  });
+}
+
+
+firstXHR().then(populateMainDropdown).then(secondXHR).then(populateSecondaryDropDown).then(decideWhichDataToLoad).then(thirdXHR).then(populateDOM);
